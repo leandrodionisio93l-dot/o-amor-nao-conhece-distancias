@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Você ❤️</title>
+  <style>
+    :root {
+      --night: #080b19;
+      --wine: #6f1838;
+      --pink: #ff8fa8;
+      --cream: #fff4f5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(ellipse at top, rgba(111,24,56,.5), transparent 55%),
+        linear-gradient(160deg, #050711, var(--night) 55%, #1d0b20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    main { width: min(900px, 100%); text-align: center; }
+    .eyebrow {
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font: 600 .75rem Arial, sans-serif;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.7rem);
+      font-weight: normal;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+    .intro {
+      max-width: 620px;
+      margin: 0 auto 28px;
+      color: #f4dfe7;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      line-height: 1.7;
+    }
+    .video-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,143,168,.35);
+      border-radius: 22px;
+      background: #02030a;
+      box-shadow: 0 20px 70px rgba(0,0,0,.45), 0 0 35px rgba(255,80,130,.1);
+    }
+    video {
+      display: block;
+      width: 100%;
+      max-height: 72vh;
+      background: #02030a;
+    }
+    .play-cover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 20px;
+      background: linear-gradient(0deg, rgba(4,5,15,.62), rgba(4,5,15,.25));
+      cursor: pointer;
+      border: 0;
+      color: white;
+      font: inherit;
+      transition: opacity .25s ease;
+    }
+    .play-cover.hidden { opacity: 0; pointer-events: none; }
+    .play-icon {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(255,143,168,.95);
+      color: #260814;
+      font: 32px Arial, sans-serif;
+      box-shadow: 0 0 35px rgba(255,143,168,.4);
+    }
+    .play-label { font: 600 .95rem Arial, sans-serif; letter-spacing: .04em; }
+    .message {
+      margin: 30px auto 0;
+      max-width: 700px;
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+      line-height: 1.65;
+    }
+    .signature {
+      color: var(--pink);
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 1.15rem;
+    }
+    .footer {
+      color: #c9b3bf;
+      font: .8rem Arial, sans-serif;
+      margin-top: 35px;
+    }
+    @media (max-width: 560px) {
+      body { padding: 24px 12px; }
+      .video-frame { border-radius: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Uma mensagem do coração</div>
+    <h1>Para você ❤️</h1>
+    <p class="intro">
+      Em meio à imensidão do universo, existem pessoas que fazem o nosso
+      pequeno mundo ficar muito mais bonito.
+    </p>
+
+    <div class="video-frame">
+      <video id="earthVideo" playsinline preload="metadata">
+        <source src="videos/terra.mp4" type="video/mp4">
+        Seu navegador não conseguiu carregar o vídeo.
+      </video>
+      <button class="play-cover" id="playCover" type="button" aria-label="Reproduzir vídeo">
+        <span class="play-icon">▶</span>
+        <span class="play-label">Clique para assistir</span>
+      </button>
+    </div>
+
+    <p class="message">
+      “Se eu pudesse escolher um lugar no universo para compartilhar
+      os meus melhores momentos, escolheria estar ao seu lado.”
+    </p>
+    <p class="signature">Com carinho, para alguém especial ✨</p>
+    <div class="footer">Feito com carinho ❤️</div>
+  </main>
+
+  <script>
+    const video = document.getElementById("earthVideo");
+    const cover = document.getElementById("playCover");
+
+    cover.addEventListener("click", async () => {
+      cover.classList.add("hidden");
+      try {
+        await video.play();
+      } catch (error) {
+        cover.classList.remove("hidden");
+      }
+    });
+
+    video.addEventListener("ended", () => {
+      cover.classList.remove("hidden");
+    });
+
+    video.addEventListener("pause", () => {
+      if (video.currentTime === 0 || video.ended) {
+        cover.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
